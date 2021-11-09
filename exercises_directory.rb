@@ -41,10 +41,20 @@ def print_header
 end
 
 def print(students)
-  count = 0
-  while count < students.count do
-    puts "#{count+1}. #{students[count][:name]} (#{students[count][:cohort]} cohort). In their spare time they love to #{students[count][:hobby]}!".center(100)
-    count += 1
+  # Initialise array
+  array_of_cohorts = []
+  # Consolidate all cohorts within the array of cohorts
+  students.each do |student|
+    array_of_cohorts.push(student[:cohort]) if !(array_of_cohorts.include?(student[:cohort]))
+  end
+  # Print out all students per cohort
+  array_of_cohorts.each do |cohort|
+    students.each do |student|
+      if cohort == student[:cohort]
+        puts "#{student[:name]} (#{cohort} cohort). They also love #{student[:hobby]} in their spare time!".center(100)
+      end
+    end
+    puts ""
   end
 end
 
