@@ -1,4 +1,5 @@
 # Villains Academy Directory
+student_count = 11
 
 # Print the list of students
 puts "The students of Villains Academy"
@@ -15,7 +16,5 @@ puts "The Joker"
 puts "Joffrey Baratheon"
 puts "Norman Bates"
 
-# Print the total number of students using print (no new line characters)
-print "Overall, we have "
-print 11
-print " great students"
+# Print the total number of students 
+puts "Overall, we have #{student_count} great students"
