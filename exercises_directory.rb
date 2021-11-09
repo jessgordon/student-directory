@@ -9,15 +9,26 @@ def input_students
   # While the name is not empty, repeat this code
   while true do
     # Get a name from the user
-    puts "name:"
+    puts "Name:"
     name = gets.chomp
     break if name.empty?
 
+    # Get their cohort
+    puts "Cohort:"
+    cohort = gets.chomp
+    # Error checking for cohort
+    if cohort.empty? || (cohort.downcase != "november" && cohort.downcase != "september")
+      puts "You entered: #{cohort}"
+      puts "Please enter a valid cohort month, otherwise default of november will be used:"
+      cohort = gets.chomp
+      cohort = "november" if cohort.empty? || (cohort.downcase != "november" && cohort.downcase != "september")
+    end
+
     # Get their favourite hobby
-    puts "hobby:"
+    puts "Hobby:"
     hobby = gets.chomp    
     # Add the student hash to the array
-    students << {name: name, cohort: :november, hobby: hobby}
+    students << {name: name, cohort: cohort.to_sym, hobby: hobby}
     puts "Now we have #{students.count} students"
   end
   # Return the array of students
