@@ -29,7 +29,11 @@ def input_students
     hobby = gets.chomp    
     # Add the student hash to the array
     students << {name: name, cohort: cohort.to_sym, hobby: hobby}
-    puts "Now we have #{students.count} students"
+    if students.count == 1
+      puts "Now we have #{students.count} student"
+    else
+      puts "Now we have #{students.count} students"
+    end
   end
   # Return the array of students
   students
@@ -59,7 +63,11 @@ def print(students)
 end
 
 def print_footer(students) 
-  puts "Overall, we have #{students.count} great students".center(100)
+  if students.count == 1
+    puts "Overall, we have #{students.count} great student".center(100)
+  else
+    puts "Overall, we have #{students.count} great students".center(100)
+  end
 end
 
 # Call methods to print student directory
