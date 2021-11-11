@@ -68,6 +68,8 @@ end
 
 # Call methods to print student directory
 students = input_students
-print_header
-print(students)
-print_footer(students)
+if students != []
+  print_header
+  print(students)
+  print_footer(students)
+end
