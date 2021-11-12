@@ -1,6 +1,10 @@
 # Villains Academy Directory
 @students = []
 
+def add_student(name, cohort)
+  @students << {name: name, cohort: cohort}
+end
+
 # Asking user for list of students
 def input_students
   puts "Please enter the names of the students"
@@ -10,7 +14,7 @@ def input_students
   # While the name is not empty, repeat this code
   while !name.empty? do
     # Add the student hash to the array
-    @students << {name: name, cohort: :november}
+    add_student(name, :november)
     puts "Now we have #{@students.count} students"
     # Get another name from the user
     name = STDIN.gets.chomp
@@ -62,7 +66,7 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+    add_student(name, cohort.to_sym)
   end
   file.close
 end
