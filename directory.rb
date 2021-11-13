@@ -1,11 +1,13 @@
 # Villains Academy Directory
+require 'csv'
+
 @students = []
 
 @options = {
   "1" => ["input_students", "Input the students", "Students have been added"],
   "2" => ["show_students", "Show the students"],
-  "3" => ["save_students", "Save the list to students.csv", "List of students saved"],
-  "4" => ["load_students", "Load the list from students.csv", "List has been loaded"],
+  "3" => ["save_students", "Save the list to a file", "List of students saved"],
+  "4" => ["load_students", "Load the list from a file", "List has been loaded"],
   "9" => ["exit", "Exit"]
 }
 
@@ -71,20 +73,17 @@ end
 
 def save_students
   filename = request_filename("save to")
-  File.open(filename, "w") do |file|
-    @students.each {|student| file.puts [student[:name], student[:cohort]].join(",")}
+  CSV.open(filename, "wb") do |file|
+    @students.each {|student| file << [student[:name], student[:cohort]] }
   end
   puts "----- #{@options["3"][2]} -----"
 end
 
 def load_students(filename = "get user input")
   filename = request_filename("load from") if filename == "get user input"
-  File.open(filename, "r") do |file|
-    file.readlines.each do |line|
-      name, cohort = line.chomp.split(',')
-      add_student(name, cohort.to_sym)
-    end
-  end
+  arr_of_students = CSV.read(filename)
+  # Adding name and cohort ([0] and [1] respectively) of each student to @students
+  arr_of_students.each {|student| add_student(student[0], student[1].to_sym)}
   puts "----- #{@options["4"][2]} -----"
 end
 
