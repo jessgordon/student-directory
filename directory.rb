@@ -2,10 +2,10 @@
 @students = []
 
 @options = {
-  "1" => ["input_students", "Input the students"],
+  "1" => ["input_students", "Input the students", "Students have been added"],
   "2" => ["show_students", "Show the students"],
-  "3" => ["save_students", "Save the list to students.csv"],
-  "4" => ["load_students", "Load the list from students.csv"],
+  "3" => ["save_students", "Save the list to students.csv", "List of students saved"],
+  "4" => ["load_students", "Load the list from students.csv", "List has been loaded"],
   "9" => ["exit", "Exit"]
 }
 
@@ -27,6 +27,7 @@ def input_students
     # Get another name from the user
     name = STDIN.gets.chomp
   end
+  puts "----- #{@options["1"][2]} -----"
 end  
 
 def print_header
@@ -64,6 +65,7 @@ def save_students
     file.puts [student[:name], student[:cohort]].join(",")
   end
   file.close
+  puts "----- #{@options["3"][2]} -----"
 end
 
 def load_students(filename = "students.csv")
@@ -73,6 +75,7 @@ def load_students(filename = "students.csv")
     add_student(name, cohort.to_sym)
   end
   file.close
+  puts "----- #{@options["4"][2]} -----"
 end
 
 def try_load_students
