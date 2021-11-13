@@ -71,24 +71,20 @@ end
 
 def save_students
   filename = request_filename("save to")
-  # Open the file for writing
-  file = File.open(filename, "w")
-  # Iterate over the array of students
-  @students.each do |student|
-    file.puts [student[:name], student[:cohort]].join(",")
+  File.open(filename, "w") do |file|
+    @students.each {|student| file.puts [student[:name], student[:cohort]].join(",")}
   end
-  file.close
   puts "----- #{@options["3"][2]} -----"
 end
 
 def load_students(filename = "get user input")
   filename = request_filename("load from") if filename == "get user input"
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(',')
-    add_student(name, cohort.to_sym)
+  File.open(filename, "r") do |file|
+    file.readlines.each do |line|
+      name, cohort = line.chomp.split(',')
+      add_student(name, cohort.to_sym)
+    end
   end
-  file.close
   puts "----- #{@options["4"][2]} -----"
 end
 
