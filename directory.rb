@@ -57,9 +57,22 @@ def show_students
   print_footer
 end 
 
+def request_filename(action)
+  # Request filename from user
+  puts "Please enter the filename you would like to #{action}."
+  filename = gets.chomp
+  while !File.exists?(filename) do
+    puts "Sorry, #{filename} doesn't exist."
+    puts "Please type a filename, or type students.csv to #{action} the main file."
+    filename = gets.chomp
+  end
+  filename
+end
+
 def save_students
+  filename = request_filename("save to")
   # Open the file for writing
-  file = File.open("students.csv", "w")
+  file = File.open(filename, "w")
   # Iterate over the array of students
   @students.each do |student|
     file.puts [student[:name], student[:cohort]].join(",")
@@ -68,7 +81,8 @@ def save_students
   puts "----- #{@options["3"][2]} -----"
 end
 
-def load_students(filename = "students.csv")
+def load_students(filename = "get user input")
+  filename = request_filename("load from") if filename == "get user input"
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
@@ -83,7 +97,7 @@ def try_load_students
   filename = "students.csv" if filename.nil?
   if File.exists?(filename)
     load_students(filename)
-    puts "Loaded #{@students.count} from #{filename}"
+    puts "Loaded #{@students.count} students from #{filename}"
   else
     puts "Sorry, #{filename} doesn't exist."
     exit
